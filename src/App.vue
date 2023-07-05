@@ -1,52 +1,70 @@
 <template>
-  <div>
-    <router-view />
-  </div>
+    <v-app>
+        <v-navigation-drawer v-model="drawer" app>
+            <v-list>
+                <v-list-item
+                    v-for="item in sidebarItems"
+                    :key="item.title"
+                    :to="item.path"
+                    link
+                >
+                    <v-list-item-title>{{ item.title }}</v-list-item-title>
+                </v-list-item>
+            </v-list>
+        </v-navigation-drawer>
+
+        <v-app-bar app>
+            <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+            <v-toolbar-title>{{ pageTitle }}</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-btn-toggle v-model="activeTheme" mandatory>
+                <v-btn value="light">
+                    <v-icon>mdi-white-balance-sunny</v-icon>
+                </v-btn>
+                <v-btn value="dark">
+                    <v-icon>mdi-moon-waning-crescent</v-icon>
+                </v-btn>
+            </v-btn-toggle>
+        </v-app-bar>
+
+        <v-main>
+              <router-view></router-view>
+        </v-main>
+    </v-app>
 </template>
 
 <script>
-export default {
-  name: "App",
+import { useTheme } from 'vuetify'
 
-  data() {
-    return {
-      drawer: false,
-      theme: 'light',
-      sidebarItems: [
-        { title: 'Home', path: '/' },
-        { title: 'About', path: '/about' },
-        // Add more sidebar items as needed
-      ]
-    }
-  },
-  computed: {
-    pageTitle() {
-      const route = this.$route
-      const matchingItem = this.sidebarItems.find(item => item.path === route.path)
-      return matchingItem ? matchingItem.title : 'Page Title'
-    }
-  },
-  watch: {
-    theme(value) {
-      this.$vuetify.theme.dark = value === 'dark'
-    }
-  },
-  created() {
-    this.theme = localStorage.getItem('theme') || 'light'
-  },
-  mounted() {
-    this.$vuetify.theme.dark = this.theme === 'dark'
-  }
+export default {
+    name: "App",
+
+    data() {
+        const theme = useTheme()
+
+        return {
+            drawer: false,
+            sidebarItems: [
+                { title: "Products", path: "/" },
+                { title: "Cart", path: "/cart" },
+            ],
+            activeTheme:'light',
+            theme,
+        };
+    },
+
+    computed: {
+        pageTitle() {
+            const matchingItem = this.sidebarItems.find((item) => item.path === this.$route.path);
+
+            return matchingItem ? matchingItem.title : "Product Detail";
+        },
+    },
+
+    watch: {
+        activeTheme(value) {
+            this.theme.global.name = value;
+        },
+    },
 };
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>

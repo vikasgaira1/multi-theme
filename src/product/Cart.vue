@@ -1,9 +1,9 @@
 <template>
-  <v-container class="fill-height">
+  <v-container>
         <v-responsive class="align-center text-center fill-height">
             <v-card>
                 <v-toolbar flat>
-                    <v-toolbar-title>Cart</v-toolbar-title>
+                    <v-toolbar-title class="text-left">Cart</v-toolbar-title>
                     <v-spacer></v-spacer>
                     <v-icon class="mr-4 pointer" @click="$router.push({ name: 'ProductList' })">mdi-window-close</v-icon>
                 </v-toolbar>

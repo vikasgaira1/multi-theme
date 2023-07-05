@@ -1,20 +1,17 @@
 <template>
-    <div class="mb-3">
-      <v-icon class="mb-5 justify-end w-75" @click="$router.push({ name: 'ProductList' })">mdi-window-close</v-icon>
+    <div class="mt-3">
         <v-card>
             <v-img :src="product.image" height="400"></v-img>
-            <v-card-content>
-                <div>
+                <div class="text-center">
                     <h2>{{ product.name }}</h2>
                     <p>Category: {{ product.category }}</p>
                     <p>Rating: {{ product.rating }}</p>
                     <p>Price: {{ product.price }}</p>
                     <p>{{ product.description }}</p>
+                    <v-btn class="mt-3 mb-3 text-center" color="primary" @click="addToCart(product)">
+                        Add to Cart
+                    </v-btn>
                 </div>
-                <v-btn class="mb-3" color="primary" @click="addToCart(product)">
-                    Add to Cart
-                </v-btn>
-            </v-card-content>
         </v-card>
     </div>
 </template>

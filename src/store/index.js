@@ -127,10 +127,6 @@ const store = createStore({
             commit("removeFromCart", product);
         },
     },
-
-    getters: {
-
-    },
 });
 
 export default store;

@@ -1,9 +1,9 @@
 <template>
-    <v-container class="fill-height">
+    <v-container>
         <v-responsive class="align-center text-center fill-height">
             <v-card>
                 <v-toolbar flat>
-                    <v-toolbar-title>Product List</v-toolbar-title>
+                    <v-toolbar-title class="text-left">Product List</v-toolbar-title>
                     <v-spacer></v-spacer>
                     <v-text-field v-model="search" label="Search" @keyup="handleSearch()" clearable></v-text-field>
                     <v-icon class="ml-4 mr-4 pointer" @click="$router.push({ name: 'Cart' })">mdi-cart</v-icon>
@@ -12,11 +12,19 @@
                     <thead>
                         <tr>
                             <th class="text-center">#</th>
-                            <th class="text-center" @click="handleSortBy('name')">Title</th>
-                            <th class="text-center" @click="handleSortBy('category')">Category</th>
-                            <th class="text-center" @click="handleSortBy('price')">Price</th>
-                            <th class="text-center" @click="handleSortBy('rating')">Rating</th>
-                            <th class="text-center" @click="handleSortBy('action')">Action</th>
+                            <th class="text-center" @click="handleSortBy('name')">Title
+                                <v-icon class="ml-2 pointer font-md">{{ sortOrder == 1 ? 'mdi-arrow-down' : 'mdi-arrow-up' }}</v-icon>
+                            </th>
+                            <th class="text-center" @click="handleSortBy('category')">Category
+                                <v-icon class="ml-2 pointer font-md">{{ sortOrder == 1 ? 'mdi-arrow-down' : 'mdi-arrow-up' }}</v-icon>
+                            </th>
+                            <th class="text-center" @click="handleSortBy('price')">Price
+                                <v-icon class="ml-2 pointer font-md">{{ sortOrder == 1 ? 'mdi-arrow-down' : 'mdi-arrow-up' }}</v-icon>
+                            </th>
+                            <th class="text-center" @click="handleSortBy('rating')">Rating
+                                <v-icon class="ml-2 pointer font-md">{{ sortOrder == 1 ? 'mdi-arrow-down' : 'mdi-arrow-up' }}</v-icon>
+                            </th>
+                            <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -106,4 +114,10 @@ export default {
     .pointer {
         cursor: pointer;
     }
+
+    .font-md {
+        font-size: 15px;
+    }
+
+
 </style>
